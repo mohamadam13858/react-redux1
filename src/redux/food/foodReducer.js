@@ -10,7 +10,7 @@ const foodState = {
 const foodReduser = (state = foodState ,action) => {
     switch (action.type) {
         case BUY_SANDEWICH:
-            return { ...state, sandewich: state.sandewich - 1 }
+            return { ...state, sandewich: state.sandewich - action.payload }
 
         default:
             return state

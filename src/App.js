@@ -1,7 +1,5 @@
 import React from "react";
-import UserComponents from "./components/UserComponents";
-import { Provider } from "react-redux";
-import store from "./redux/store";
+import Weather from "./components/Weather";
 
 
 
@@ -9,9 +7,7 @@ const App = ()=>{
 
     return(
         <div>
-            <Provider store={store}>
-            <UserComponents/>
-            </Provider>
+            <Weather/>
         </div>
     )
 

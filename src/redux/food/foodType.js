@@ -1,1 +1,0 @@
-export const BUY_SANDEWICH = "BUY_SANDEWICH"

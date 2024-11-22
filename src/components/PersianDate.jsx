@@ -1,17 +1,17 @@
 import moment from 'moment-jalaali';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-const weekDays =  [
+import React, { useEffect, useState } from 'react';
+
+const weekDays = [
     'یکشنبه',
     'دوشنبه',
-    'سه شنبه',
+    'سه‌شنبه',
     'چهارشنبه',
     'پنجشنبه',
     'جمعه',
     'شنبه',
-]
-const yearMonth =  [
+];
+
+const yearMonths = [
     'فروردین',
     'اردیبهشت',
     'خرداد',
@@ -24,21 +24,32 @@ const yearMonth =  [
     'دی',
     'بهمن',
     'اسفند',
-]
+];
+
 const PersianDate = () => {
-    const [date , setDate] = useState('')
-    const [time , setTime] = useState('')
-    useEffect(()=>{
-        let m = moment()
-        let finalDate = `${weekDays[m.day()]} ${m.jDate()} ${yearMonth[m.jMonth()]} ماه ${m.jYear()}`
-        setDate(finalDate);
-        setTime(moment().format("HH:mm"))
-    } ,[])
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+
+    useEffect(() => {
+        const updateDateTime = () => {
+            let m = moment();
+            let finalDate = `${weekDays[m.day()]} ${m.jDate()} ${yearMonths[m.jMonth()]} ماه ${m.jYear()}`;
+            setDate(finalDate);
+            setTime(m.format("HH:mm"));
+        };
+
+        updateDateTime();
+        const intervalId = setInterval(updateDateTime, 60000); // Update every minute
+
+        return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    }, []);
+
     return (
         <>
             <span className='mb-3 d-block text-center'>{date}</span>
             <span className='d-block text-center'>ساعت {time}</span>
         </>
     );
-}
+};
+
 export default PersianDate;

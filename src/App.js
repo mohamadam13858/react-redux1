@@ -1,13 +1,17 @@
 import React from "react";
 import Weather from "./components/Weather";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 
 
-const App = ()=>{
+const App = () => {
 
-    return(
+    return (
         <div>
-            <Weather/>
+            <Provider store={store}>
+                <Weather />
+            </Provider>
         </div>
     )
 

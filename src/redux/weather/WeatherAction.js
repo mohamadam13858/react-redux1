@@ -1,36 +1,36 @@
 import { RECEIVE_WEATHER_ERROR, RECEIVE_WEATHER_RESPONSE, SEND_WEATHER_REQUEST } from "./WeatherType";
 import axios from "axios";
 
-const sendWeatherRequest = () => {
+export const sendWeatherRequest = (query) => {
     return {
-        type: SEND_WEATHER_REQUEST
+        type: SEND_WEATHER_REQUEST,
+        payload: query
     };
 };
 
-const receiveWeatherResponse = (data) => {
+export const receiveWeatherResponse = (data) => {
     return {
         type: RECEIVE_WEATHER_RESPONSE,
         payload: data
     };
 };
 
-const receiveWeatherError = (error) => {
+export const receiveWeatherError = (data) => {
     return {
         type: RECEIVE_WEATHER_ERROR,
-        payload: error
+        payload: data
     };
 };
 
-const getWeatherInfo = (query) => {
-    return async (dispatch) => {
-        dispatch(sendWeatherRequest());
-        try {
-            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=7ebcd0b29f8e07a508956a38313b3ce0`);
-            dispatch(receiveWeatherResponse(response.data));
-        } catch (error) {
-            dispatch(receiveWeatherError(error.message));
-        }
-    };
-};
+// const getWeatherInfo = (query = 'tehran') => {
+//     dispatch(sendWeatherRequest());
+//     axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=a1496c1b55417d9accfd35f003b7720c&units=metric&lang=fa`)
+//         .then(res => {
+//             dispatch(receiveWeatherResponse(res.data));
+//         })
+//         .catch(error => {
+//             dispatch(receiveWeatherError(error));
+//         });
+// };
 
-export default getWeatherInfo;
+// export default getWeatherInfo;

@@ -6,12 +6,12 @@ const initialState = {
     error: ''
 };
 
-const weatherReducer = (state = initialState, action) => {
+const weatherReducer = (state= initialState, action) => {
     switch (action.type) {
         case SEND_WEATHER_REQUEST:
             return { ...state, loading: true };
         case RECEIVE_WEATHER_RESPONSE:
-            return { loading: false, data: action.payload, error: '' };
+            return { loading: false, data: action.payload , error: '' };
         case RECEIVE_WEATHER_ERROR:
             return { loading: false, data: {}, error: action.payload };
         default:

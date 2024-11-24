@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PersianDate from './PersianDate';
 import { useSelector, useDispatch } from 'react-redux';
-import { getWeatherinfo } from '../redux/weather/WeatherAction';
-import getWeatherInfo from '../redux/weather/WeatherAction';
+import getWeatherInfo, { sendWeatherRequest } from '../redux/weather/WeatherAction';
 
 const Weather = () => {
-    const { loading, data, error } = useSelector(state => state); // Assuming state.weather is the correct path
+    const { loading, data, error } = useSelector(state => state);
     const dispatch = useDispatch();
     const [backMode, setBackMode] = useState('usual');
     const [query, setQuery] = useState('');
 
     const handleGetWeather = e => {
         e.preventDefault();
-        if (query.trim()) {
-            dispatch(getWeatherInfo(`q=${query}`));
-            setQuery('');
-        }
+        dispatch(sendWeatherRequest(query));
+        setQuery('');
     };
 
     useEffect(() => {
-        if (!data.main) {
+        if (!data || !data.main) {
             return;
         }
         let temp = data.main.temp;
@@ -40,7 +37,7 @@ const Weather = () => {
                         <input
                             type="text"
                             className='search_input w-100 text_color placeholder_color'
-                            placeholder={data.name || 'نام شهر یا کشور'}
+                            placeholder={ data.name ||'نام شهر یا کشور'}
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                         />
@@ -61,7 +58,7 @@ const Weather = () => {
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
-            ) : data.main ? (
+            ) : data && data.main ? (
                 <>
                     <div className='row justify-content-center py-3'>
                         <div className='col-9 col-md-6 col-lg-4 col-xl-3'>
